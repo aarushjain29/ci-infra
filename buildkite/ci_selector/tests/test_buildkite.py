@@ -400,6 +400,19 @@ def test_a_declared_mirror_label_is_modelled_rather_than_flagged():
     assert variant.step_id == "vllm_ci:basic-correctness-amd:amd"
 
 
+def test_a_mirror_automatic_shard_opt_in_is_modelled_rather_than_flagged():
+    """A sharded AMD mirror sets `automatic_shard` in its own block. Leaving it
+    unmodelled force-selected every such mirror on every build, and a forced
+    step is not droppable. Sharding changes no test the mirror runs."""
+    report = LoadReport()
+    parent = _parent_step()
+    variant = _expand_mirror(
+        parent, "amd", {"device": "mi355_dpx", "automatic_shard": True}, report
+    )
+    assert report.unknown_fields == {}
+    assert variant.commands == parent.commands
+
+
 @pytest.mark.drift
 def test_pr_pipeline_is_what_the_pr_config_calls_itself(vllm_repo):
     """PR_PIPELINE prefixes every step id we emit and every row we look up.

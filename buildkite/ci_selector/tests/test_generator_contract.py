@@ -189,6 +189,8 @@ def test_every_mirror_key_the_generator_reads_is_modelled():
     keys = mirror_override_keys(
         buildkite_step.convert_group_step_to_buildkite_step,
         buildkite_step._get_amd_mirror_effective_step,
+        # Reads the mirror's `automatic_shard` opt-in.
+        buildkite_step._runtime_shard_mode,
     )
     # Guard the guard: an upstream rename would empty the scan, and an empty
     # set is a subset of anything.

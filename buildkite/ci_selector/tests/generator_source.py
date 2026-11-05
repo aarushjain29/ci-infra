@@ -67,7 +67,7 @@ def attr_assignment(func: Callable, attr: str) -> str:
     raise LookupError(f"{func.__name__}: nothing assigned to .{attr}")
 
 
-# The name the mirror override dict is bound to in both reading functions.
+# The name the mirror override dict is bound to in every reading function.
 # `step.mirror["amd"]` is an Attribute, not a Name, so the hardware key is
 # excluded and only override keys are collected.
 MIRROR_VAR = "amd"

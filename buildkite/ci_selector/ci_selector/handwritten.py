@@ -526,6 +526,10 @@ MIRROR_OVERRIDABLE = {
     # Listed, never honored: the generator passes the parent's parallelism, so
     # a mirror asking for its own is silently ignored upstream.
     "parallelism",
+    # The mirror's half of the runtime-sharding opt-in: a mirror is sharded
+    # only when it and its parent both set it. Like the step field, it splits
+    # the mirror's own tests across jobs without changing which tests run.
+    "automatic_shard",
 }
 
 # The env var the generator reads. Absent means "your rules"; present means
